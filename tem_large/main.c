@@ -63,12 +63,6 @@ unsigned int Filter() {
     return (unsigned int)(sum / (N_POINT - 2));
 }
 
-unsigned int GetAD1() {
-    unsigned int temp  = 0;                //设置变量
-    ADC12CTL0         |= ADC12SC;          //开始采样转换
-    temp               = ADC12MEM1;        //把结果赋给变量
-    return temp;
-}
 
 unsigned int icnt;
 void         IO_Init(void) {
@@ -121,38 +115,38 @@ int main(void) {
         if (ivalue >= 2550 && ivalue < 2600) {
             for (i = 0; i < 8000; i++) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.0001);
+                __delay_cycles(1600);
             }
-            __delay_cycles(16000000 * 0.1);
+            __delay_cycles(1600000);
             for (i = 8000; i > 0; i--) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.0001);
+                __delay_cycles(1600);
             }
-            __delay_cycles(16000000 * 0.1);
+            __delay_cycles(1600000);
 
         } else if (ivalue >= 2600 && ivalue < 2650) {
             for (i = 0; i < 8000; i++) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.00005);
+                __delay_cycles(800);
             }
-            __delay_cycles(16000000 * 0.1);
+            __delay_cycles(1600000);
             for (i = 8000; i > 0; i--) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.00005);
+                __delay_cycles(800);
             }
-            __delay_cycles(16000000 * 0.1);
+            __delay_cycles(1600000);
 
         } else if (ivalue >= 2650 && ivalue < 2700) {
             for (i = 0; i < 8000; i++) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.000001);
+                __delay_cycles(16);
             }
             __delay_cycles(16000000 * 0.1);
             for (i = 8000; i > 0; i--) {
                 TA2CCR2 = i;
-                __delay_cycles(16000000 * 0.000001);
+                __delay_cycles(16);
             }
-            __delay_cycles(16000000 * 0.1);
+            __delay_cycles(1600000);
 
         } else if (ivalue >= 2700) {
             TA2CCR2 = 8000;

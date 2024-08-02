@@ -33,5 +33,6 @@ int main(void) {
     while (true) {
         ivalue = Filter();        //软件滤波
         temperature_control(ivalue);
+        large_led_breath(ivalue);
     }
 }

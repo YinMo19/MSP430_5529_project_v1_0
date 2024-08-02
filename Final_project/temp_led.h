@@ -12,5 +12,6 @@ unsigned int        GetAD1();
 unsigned int        Filter1();
 void                IO_Init(void);
 void                temperature_control(volatile unsigned int ivalue);
+void                large_led_breath(volatile unsigned int ivalue);
 
 #endif        //__temp_led_h__

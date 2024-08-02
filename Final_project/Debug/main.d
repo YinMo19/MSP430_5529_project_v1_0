@@ -8,6 +8,9 @@ main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intr
 main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_legacy_undefs.h
 main.obj: ../Paper_Display.h
 main.obj: ../temp_led.h
+main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
+main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
+main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
 
 ../main.c:
 
@@ -24,4 +27,10 @@ C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/intrinsics_leg
 ../Paper_Display.h:
 
 ../temp_led.h:
+
+C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
+
+C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h:
+
+C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h:
 

@@ -1,0 +1,6 @@
+"./Paper_Display.obj"
+"./main.obj"
+"./temp_led.obj"
+"../lnk_msp430f5529.cmd"
+-llibmath.a
+-llibc.a

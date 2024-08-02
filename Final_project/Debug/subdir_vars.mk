@@ -11,31 +11,37 @@ CMD_SRCS += \
 C_SRCS += \
 ../Paper_Display.c \
 ../main.c \
+../oled.c \
 ../temp_led.c 
 
 C_DEPS += \
 ./Paper_Display.d \
 ./main.d \
+./oled.d \
 ./temp_led.d 
 
 OBJS += \
 ./Paper_Display.obj \
 ./main.obj \
+./oled.obj \
 ./temp_led.obj 
 
 OBJS__QUOTED += \
 "Paper_Display.obj" \
 "main.obj" \
+"oled.obj" \
 "temp_led.obj" 
 
 C_DEPS__QUOTED += \
 "Paper_Display.d" \
 "main.d" \
+"oled.d" \
 "temp_led.d" 
 
 C_SRCS__QUOTED += \
 "../Paper_Display.c" \
 "../main.c" \
+"../oled.c" \
 "../temp_led.c" 
 
 

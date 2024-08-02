@@ -5,11 +5,11 @@
 
 extern unsigned int icnt;
 
-void                ADInit();
-unsigned int        GetAD();
-unsigned int        Filter();
-unsigned int        GetAD1();
-unsigned int        Filter1();
+void                ADInit(void);
+unsigned int        GetAD(void);
+unsigned int        Filter(void);
+unsigned int        GetAD1(void);
+unsigned int        Filter1(void);
 void                IO_Init(void);
 void                temperature_control(volatile unsigned int ivalue);
 void                large_led_breath(volatile unsigned int ivalue);

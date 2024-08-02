@@ -2,6 +2,8 @@
 #include "Paper_Display.h"
 #include "temp_led.h"
 #include <stdbool.h>
+#include "oled.h"
+#include "bmp.h"
 
 /**
  * main.c
@@ -15,6 +17,7 @@ int main(void) {
 	 */
     IO_Init();
     ADInit();
+    OLED_Init();
 
     // P8DIR |= BIT1;
     // P8OUT &= ~BIT1;
@@ -33,6 +36,7 @@ int main(void) {
     while (true) {
         ivalue = Filter();        //软件滤波
         temperature_control(ivalue);
-        large_led_breath(ivalue);
+//        large_led_breath(ivalue);
+        OLED_ShowString(0, 0, "Temperature:");
     }
 }

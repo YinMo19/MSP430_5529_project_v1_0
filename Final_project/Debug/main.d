@@ -11,6 +11,8 @@ main.obj: ../temp_led.h
 main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h
 main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h
 main.obj: C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h
+main.obj: ../oled.h
+main.obj: ../bmp.h
 
 ../main.c:
 
@@ -33,4 +35,8 @@ C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/stdbool.h:
 C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/_ti_config.h:
 
 C:/ti/ccs1271/ccs/tools/compiler/ti-cgt-msp430_21.6.1.LTS/include/linkage.h:
+
+../oled.h:
+
+../bmp.h:
 

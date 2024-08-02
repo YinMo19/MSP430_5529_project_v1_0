@@ -91,17 +91,6 @@ void IO_Init(void) {
     P3DIR    |= BIT5;         // 设置 P3.5 引脚为输出模式
     P3OUT    &= ~BIT5;        // 确保 P3.5 初始状态为低电平
 
-    // P1DIR |= BIT0;        // 设置 P1.0 引脚为输出模式，控制蜂鸣器
-    // P1OUT |= BIT0;        // 将 P1.0 设置为高电平
-
-    // P2DIR &= ~(BIT3 + BIT6);        // 设置 P2.3 和 P2.6 为输入模式
-    // P2REN |= BIT3 + BIT6;           // 启用 P2.3 和 P2.6 的上拉电阻
-    // P2OUT |= BIT3 + BIT6;           // 将 P2.3 和 P2.6 设置为高电平
-
-    // P1DIR &= ~(BIT3 + BIT2);        // 设置 P1.3 和 P1.2 为输入模式
-    // P1REN  = BIT3 + BIT2;           // 启用 P1.3 和 P1.2 的上拉电阻
-    // P1OUT |= BIT3 + BIT2;           // 将 P1.3 和 P1.2 设置为高电平
-
     P1DIR    |= BIT5;                 // 设置 P1.5 为输出模式
     P1OUT    |= BIT5;                 // 将 P1.5 设置为高电平
     P2DIR    |= (BIT4 + BIT5);        // 设置 P2.4 和 P2.5 为输出模式

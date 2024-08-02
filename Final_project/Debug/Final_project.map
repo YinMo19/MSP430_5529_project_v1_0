@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.1                     
 ******************************************************************************
->> Linked Fri Aug  2 21:01:59 2024
+>> Linked Sat Aug  3 01:24:14 2024
 
 OUTPUT FILE NAME:   <Final_project.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00004400
@@ -20,7 +20,7 @@ MEMORY CONFIGURATION
   INFOA                 00001980   00000080  00000000  00000080  RWIX
   USBRAM                00001c00   00000800  00000000  00000800  RWIX
   RAM                   00002400   00002000  00001040  00000fc0  RWIX
-  FLASH                 00004400   0000bb80  00001f93  00009bed  RWIX
+  FLASH                 00004400   0000bb80  00002592  000095ee  RWIX
   INT00                 0000ff80   00000002  00000000  00000002  RWIX
   INT01                 0000ff82   00000002  00000000  00000002  RWIX
   INT02                 0000ff84   00000002  00000000  00000002  RWIX
@@ -85,7 +85,7 @@ MEMORY CONFIGURATION
   INT61                 0000fffa   00000002  00000002  00000000  RWIX
   INT62                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FLASH2                00010000   000143f8  000007ea  00013c0e  RWIX
+  FLASH2                00010000   000143f8  000008ce  00013b2a  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -105,20 +105,23 @@ section   page    origin      length       input sections
                   00004400    0000001c     rts430x_lc_rd_eabi.lib : boot.c.obj (.text:_isr:_c_int00_noargs)
                   0000441c    00000008                            : isr_trap.asm.obj (.text:_isr:__TI_ISR_TRAP)
 
-.cinit     0    00006382    00000012     
-                  00006382    00000006     (.cinit..bss.load) [load image, compression = zero_init]
-                  00006388    00000004     (__TI_handler_table)
-                  0000638c    00000008     (__TI_cinit_table)
+.cinit     0    00006980    00000012     
+                  00006980    00000006     (.cinit..bss.load) [load image, compression = zero_init]
+                  00006986    00000004     (__TI_handler_table)
+                  0000698a    00000008     (__TI_cinit_table)
 
 .binit     0    00004400    00000000     
 
 .init_array 
 *          0    00004400    00000000     UNINITIALIZED
 
-.const     0    00004424    00001f5d     
+.const     0    00004424    0000255c     
                   00004424    00000fa0     Paper_Display.obj (.const:.string:gImage_b)
                   000053c4    00000fa0     Paper_Display.obj (.const:.string:gImage_logo)
-                  00006364    0000001d     Paper_Display.obj (.const:.string:init_data)
+                  00006364    000005f0     oled.obj (.const:.string:F8X16)
+                  00006954    0000001d     Paper_Display.obj (.const:.string:init_data)
+                  00006971    00000001     --HOLE-- [fill = 0]
+                  00006972    0000000e     main.obj (.const:.string)
 
 RTC        0    0000ffd2    00000002     
                   0000ffd2    00000002     rts430x_lc_rd_eabi.lib : int41.asm.obj (.int41)
@@ -197,34 +200,39 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.c.obj (.reset)
 
-.text      0    00010000    000007ea     
-                  00010000    00000196     temp_led.obj (.text:large_led_breath)
-                  00010196    000000de     temp_led.obj (.text:Filter)
-                  00010274    000000d2     Paper_Display.obj (.text:INIT_SSD1673)
-                  00010346    000000c8     Paper_Display.obj (.text:DIS_IMG)
-                  0001040e    00000086     temp_led.obj (.text:temperature_control)
-                  00010494    00000084     temp_led.obj (.text:IO_Init)
-                  00010518    00000054     rts430x_lc_rd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
-                  0001056c    00000044     Paper_Display.obj (.text:SPI4W_WRITECOM)
-                  000105b0    00000044     Paper_Display.obj (.text:SPI4W_WRITEDATA)
-                  000105f4    00000042     main.obj (.text:main)
-                  00010636    0000003a     Paper_Display.obj (.text:initClock)
-                  00010670    0000002e     temp_led.obj (.text:ADInit)
-                  0001069e    0000002c     rts430x_lc_rd_eabi.lib : div16s.asm.obj (.text)
-                  000106ca    00000026     Paper_Display.obj (.text:WRITE_LUT)
-                  000106f0    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  00010714    0000001c     Paper_Display.obj (.text:DELAY_S)
-                  00010730    0000001c     Paper_Display.obj (.text:DELAY_mS)
-                  0001074c    0000001a     Paper_Display.obj (.text:Init_buff)
-                  00010766    0000001a     Paper_Display.obj (.text:MyRESET)
-                  00010780    00000018     Paper_Display.obj (.text:DELAY_M)
-                  00010798    00000018     Paper_Display.obj (.text:PaperIO_Int)
-                  000107b0    00000016     rts430x_lc_rd_eabi.lib : div16u.asm.obj (.text)
-                  000107c6    0000000e     Paper_Display.obj (.text:READBUSY)
-                  000107d4    0000000a     temp_led.obj (.text:GetAD)
-                  000107de    00000006     rts430x_lc_rd_eabi.lib : exit.c.obj (.text:abort)
-                  000107e4    00000004                            : pre_init.c.obj (.text:_system_pre_init)
-                  000107e8    00000002                            : startup.c.obj (.text:_system_post_cinit)
+.text      0    00010000    000008ce     
+                  00010000    0000011c     oled.obj (.text:OLED_Init)
+                  0001011c    000000de     temp_led.obj (.text:Filter)
+                  000101fa    000000d2     Paper_Display.obj (.text:INIT_SSD1673)
+                  000102cc    000000c8     Paper_Display.obj (.text:DIS_IMG)
+                  00010394    00000086     temp_led.obj (.text:temperature_control)
+                  0001041a    00000084     temp_led.obj (.text:IO_Init)
+                  0001049e    0000006e     oled.obj (.text:OLED_ShowChar)
+                  0001050c    00000054     rts430x_lc_rd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
+                  00010560    0000004c     main.obj (.text:main)
+                  000105ac    00000048     oled.obj (.text:OLED_WR_Byte)
+                  000105f4    00000044     Paper_Display.obj (.text:SPI4W_WRITECOM)
+                  00010638    00000044     Paper_Display.obj (.text:SPI4W_WRITEDATA)
+                  0001067c    00000040     oled.obj (.text:OLED_Clear)
+                  000106bc    0000003a     Paper_Display.obj (.text:initClock)
+                  000106f6    00000036     oled.obj (.text:OLED_ShowString)
+                  0001072c    0000002e     temp_led.obj (.text:ADInit)
+                  0001075a    0000002c     rts430x_lc_rd_eabi.lib : div16s.asm.obj (.text)
+                  00010786    00000028     oled.obj (.text:OLED_Set_Pos)
+                  000107ae    00000026     Paper_Display.obj (.text:WRITE_LUT)
+                  000107d4    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  000107f8    0000001c     Paper_Display.obj (.text:DELAY_S)
+                  00010814    0000001c     Paper_Display.obj (.text:DELAY_mS)
+                  00010830    0000001a     Paper_Display.obj (.text:Init_buff)
+                  0001084a    0000001a     Paper_Display.obj (.text:MyRESET)
+                  00010864    00000018     Paper_Display.obj (.text:DELAY_M)
+                  0001087c    00000018     Paper_Display.obj (.text:PaperIO_Int)
+                  00010894    00000016     rts430x_lc_rd_eabi.lib : div16u.asm.obj (.text)
+                  000108aa    0000000e     Paper_Display.obj (.text:READBUSY)
+                  000108b8    0000000a     temp_led.obj (.text:GetAD)
+                  000108c2    00000006     rts430x_lc_rd_eabi.lib : exit.c.obj (.text:abort)
+                  000108c8    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  000108cc    00000002                            : startup.c.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
@@ -232,10 +240,11 @@ MODULE SUMMARY
        ------                 ----   -------   -------
     .\
        Paper_Display.obj      812    8029      4000   
-       temp_led.obj           950    0         0      
-       main.obj               66     0         0      
+       oled.obj               624    1520      0      
+       temp_led.obj           544    0         0      
+       main.obj               76     14        0      
     +--+----------------------+------+---------+---------+
-       Total:                 1828   8029      4000   
+       Total:                 2056   9563      4000   
                                                       
     C:\ti\ccs1271\ccs\tools\compiler\ti-cgt-msp430_21.6.1.LTS\lib\rts430x_lc_rd_eabi.lib
        autoinit.c.obj         84     0         0      
@@ -275,18 +284,18 @@ MODULE SUMMARY
        Stack:                 0      0         160    
        Linker Generated:      0      18        0      
     +--+----------------------+------+---------+---------+
-       Grand Total:           2062   8093      4160   
+       Grand Total:           2290   9627      4160   
 
 
 LINKER GENERATED COPY TABLES
 
-__TI_cinit_table @ 0000638c records: 1, size/record: 8, table size: 8
-	.bss: load addr=00006382, load size=00000006 bytes, run addr=00002400, run size=00000fa0 bytes, compression=zero_init
+__TI_cinit_table @ 0000698a records: 1, size/record: 8, table size: 8
+	.bss: load addr=00006980, load size=00000006 bytes, run addr=00002400, run size=00000fa0 bytes, compression=zero_init
 
 
 LINKER GENERATED HANDLER TABLE
 
-__TI_handler_table @ 00006388 records: 1, size/record: 4, table size: 4
+__TI_handler_table @ 00006986 records: 1, size/record: 4, table size: 4
 	index: 0, handler: __TI_zero_init
 
 
@@ -376,8 +385,8 @@ address   name
 00000732  ADC12MEM9                              
 00000733  ADC12MEM9_H                            
 00000732  ADC12MEM9_L                            
-00010670  ADInit                                 
-000107de  C$$EXIT                                
+0001072c  ADInit                                 
+000108c2  C$$EXIT                                
 000008c0  CBCTL0                                 
 000008c1  CBCTL0_H                               
 000008c0  CBCTL0_L                               
@@ -406,10 +415,10 @@ address   name
 00000156  CRCRESR                                
 00000157  CRCRESR_H                              
 00000156  CRCRESR_L                              
-00010780  DELAY_M                                
-00010714  DELAY_S                                
-00010730  DELAY_mS                               
-00010346  DIS_IMG                                
+00010864  DELAY_M                                
+000107f8  DELAY_S                                
+00010814  DELAY_mS                               
+000102cc  DIS_IMG                                
 00000510  DMA0CTL                                
 00000516  DMA0DA                                 
 00000518  DMA0DAH                                
@@ -441,6 +450,7 @@ address   name
 00000508  DMACTL4                                
 0000050e  DMAIV                                  
 00002400  DisBuffer                              
+00006364  F8X16                                  
 00000140  FCTL1                                  
 00000141  FCTL1_H                                
 00000140  FCTL1_L                                
@@ -450,11 +460,11 @@ address   name
 00000146  FCTL4                                  
 00000147  FCTL4_H                                
 00000146  FCTL4_L                                
-00010196  Filter                                 
-000107d4  GetAD                                  
-00010274  INIT_SSD1673                           
-00010494  IO_Init                                
-0001074c  Init_buff                              
+0001011c  Filter                                 
+000108b8  GetAD                                  
+000101fa  INIT_SSD1673                           
+0001041a  IO_Init                                
+00010830  Init_buff                              
 000004c4  MAC                                    
 000004da  MAC32H                                 
 000004db  MAC32H_H                               
@@ -494,7 +504,13 @@ address   name
 000004c2  MPYS_L                                 
 000004c1  MPY_H                                  
 000004c0  MPY_L                                  
-00010766  MyRESET                                
+0001084a  MyRESET                                
+0001067c  OLED_Clear                             
+00010000  OLED_Init                              
+00010786  OLED_Set_Pos                           
+0001049e  OLED_ShowChar                          
+000106f6  OLED_ShowString                        
+000105ac  OLED_WR_Byte                           
 000004c8  OP2                                    
 000004e2  OP2H                                   
 000004e3  OP2H_H                                 
@@ -635,11 +651,11 @@ address   name
 0000012e  PMMRIE                                 
 0000012f  PMMRIE_H                               
 0000012e  PMMRIE_L                               
-00010798  PaperIO_Int                            
+0001087c  PaperIO_Int                            
 00000158  RCCTL0                                 
 00000159  RCCTL0_H                               
 00000158  RCCTL0_L                               
-000107c6  READBUSY                               
+000108aa  READBUSY                               
 000001b0  REFCTL0                                
 000001b1  REFCTL0_H                              
 000001b0  REFCTL0_L                              
@@ -704,8 +720,8 @@ address   name
 00000104  SFRRPCR                                
 00000105  SFRRPCR_H                              
 00000104  SFRRPCR_L                              
-0001056c  SPI4W_WRITECOM                         
-000105b0  SPI4W_WRITEDATA                        
+000105f4  SPI4W_WRITECOM                         
+00010638  SPI4W_WRITEDATA                        
 000004ce  SUMEXT                                 
 000004cf  SUMEXT_H                               
 000004ce  SUMEXT_L                               
@@ -1041,16 +1057,16 @@ address   name
 0000015c  WDTCTL                                 
 0000015d  WDTCTL_H                               
 0000015c  WDTCTL_L                               
-000106ca  WRITE_LUT                              
+000107ae  WRITE_LUT                              
 00004400  __STACK_END                            
 000000a0  __STACK_SIZE                           
-0000638c  __TI_CINIT_Base                        
-00006394  __TI_CINIT_Limit                       
-00006394  __TI_CINIT_Warm                        
-00006388  __TI_Handler_Table_Base                
-0000638c  __TI_Handler_Table_Limit               
+0000698a  __TI_CINIT_Base                        
+00006992  __TI_CINIT_Limit                       
+00006992  __TI_CINIT_Warm                        
+00006986  __TI_Handler_Table_Base                
+0000698a  __TI_Handler_Table_Limit               
 0000441c  __TI_ISR_TRAP                          
-00010518  __TI_auto_init_nobinit_nopinit_hold_wdt
+0001050c  __TI_auto_init_nobinit_nopinit_hold_wdt
 0000ffd2  __TI_int41                             
 0000ffd4  __TI_int42                             
 0000ffd6  __TI_int43                             
@@ -1076,25 +1092,24 @@ address   name
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-000106f0  __TI_zero_init                         
+000107d4  __TI_zero_init                         
 ffffffff  __c_args__                             
-0001069e  __mspabi_divi                          
-000107b0  __mspabi_divu                          
-0001069e  __mspabi_remi                          
-000107b0  __mspabi_remu                          
+0001075a  __mspabi_divi                          
+00010894  __mspabi_divu                          
+0001075a  __mspabi_remi                          
+00010894  __mspabi_remu                          
 00004400  _c_int00_noargs                        
 0000fffe  _reset_vector                          
 00004360  _stack                                 
-000107e8  _system_post_cinit                     
-000107e4  _system_pre_init                       
-000107de  abort                                  
+000108cc  _system_post_cinit                     
+000108c8  _system_pre_init                       
+000108c2  abort                                  
 00004424  gImage_b                               
 000053c4  gImage_logo                            
-00010636  initClock                              
-00006364  init_data                              
-00010000  large_led_breath                       
-000105f4  main                                   
-0001040e  temperature_control                    
+000106bc  initClock                              
+00006954  init_data                              
+00010560  main                                   
+00010394  temperature_control                    
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
@@ -1839,12 +1854,13 @@ address   name
 0000441c  __TI_ISR_TRAP                          
 00004424  gImage_b                               
 000053c4  gImage_logo                            
-00006364  init_data                              
-00006388  __TI_Handler_Table_Base                
-0000638c  __TI_CINIT_Base                        
-0000638c  __TI_Handler_Table_Limit               
-00006394  __TI_CINIT_Limit                       
-00006394  __TI_CINIT_Warm                        
+00006364  F8X16                                  
+00006954  init_data                              
+00006986  __TI_Handler_Table_Base                
+0000698a  __TI_CINIT_Base                        
+0000698a  __TI_Handler_Table_Limit               
+00006992  __TI_CINIT_Limit                       
+00006992  __TI_CINIT_Warm                        
 0000ffd2  __TI_int41                             
 0000ffd4  __TI_int42                             
 0000ffd6  __TI_int43                             
@@ -1868,39 +1884,44 @@ address   name
 0000fffa  __TI_int61                             
 0000fffc  __TI_int62                             
 0000fffe  _reset_vector                          
-00010000  large_led_breath                       
-00010196  Filter                                 
-00010274  INIT_SSD1673                           
-00010346  DIS_IMG                                
-0001040e  temperature_control                    
-00010494  IO_Init                                
-00010518  __TI_auto_init_nobinit_nopinit_hold_wdt
-0001056c  SPI4W_WRITECOM                         
-000105b0  SPI4W_WRITEDATA                        
-000105f4  main                                   
-00010636  initClock                              
-00010670  ADInit                                 
-0001069e  __mspabi_divi                          
-0001069e  __mspabi_remi                          
-000106ca  WRITE_LUT                              
-000106f0  __TI_zero_init                         
-00010714  DELAY_S                                
-00010730  DELAY_mS                               
-0001074c  Init_buff                              
-00010766  MyRESET                                
-00010780  DELAY_M                                
-00010798  PaperIO_Int                            
-000107b0  __mspabi_divu                          
-000107b0  __mspabi_remu                          
-000107c6  READBUSY                               
-000107d4  GetAD                                  
-000107de  C$$EXIT                                
-000107de  abort                                  
-000107e4  _system_pre_init                       
-000107e8  _system_post_cinit                     
+00010000  OLED_Init                              
+0001011c  Filter                                 
+000101fa  INIT_SSD1673                           
+000102cc  DIS_IMG                                
+00010394  temperature_control                    
+0001041a  IO_Init                                
+0001049e  OLED_ShowChar                          
+0001050c  __TI_auto_init_nobinit_nopinit_hold_wdt
+00010560  main                                   
+000105ac  OLED_WR_Byte                           
+000105f4  SPI4W_WRITECOM                         
+00010638  SPI4W_WRITEDATA                        
+0001067c  OLED_Clear                             
+000106bc  initClock                              
+000106f6  OLED_ShowString                        
+0001072c  ADInit                                 
+0001075a  __mspabi_divi                          
+0001075a  __mspabi_remi                          
+00010786  OLED_Set_Pos                           
+000107ae  WRITE_LUT                              
+000107d4  __TI_zero_init                         
+000107f8  DELAY_S                                
+00010814  DELAY_mS                               
+00010830  Init_buff                              
+0001084a  MyRESET                                
+00010864  DELAY_M                                
+0001087c  PaperIO_Int                            
+00010894  __mspabi_divu                          
+00010894  __mspabi_remu                          
+000108aa  READBUSY                               
+000108b8  GetAD                                  
+000108c2  C$$EXIT                                
+000108c2  abort                                  
+000108c8  _system_pre_init                       
+000108cc  _system_post_cinit                     
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
 ffffffff  __c_args__                             
 
-[801 symbols]
+[807 symbols]

@@ -1,16 +1,14 @@
 #include <msp430.h>
 
-void main(void)
-{
-    // ֹͣ���Ź���ʱ��
-    WDTCTL = WDTPW + WDTHOLD;
+void main(void) {
+    // 停止看门狗计时器
+    WDTCTL  = WDTPW + WDTHOLD;
 
-    // ����P2.4Ϊ���
-    P2DIR |= BIT4;
-    P2OUT |= BIT4; // ����P2.4Ϊ�ߵ�ƽ
+    // 设置P2.4为输出
+    P2DIR  |= BIT4;
+    P2OUT  |= BIT4;        // 设置P2.4为高电平
 
-    while (1)
-    {
-        // �ڴ˴����������������룬���߱��ֿ���
+    while (1) {
+        // 在此处可以添加其他代码，或者保持空闲
     }
 }

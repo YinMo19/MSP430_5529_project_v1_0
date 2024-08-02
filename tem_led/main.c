@@ -1,21 +1,21 @@
 #include <msp430.h>
 
 void ADInit() {
-    ADC12CTL0  |= ADC12MSC;             //×Ô¶¯Ñ­»·²ÉÑù×ª»»
-    ADC12CTL0  |= ADC12ON;              //Æô¶¯ADC12Ä£¿é
-    ADC12CTL1  |= ADC12CONSEQ_3;        //Ñ¡ÔñĞòÁĞÍ¨µÀ¶à´ÎÑ­»·²ÉÑù×ª»»
-    ADC12CTL1  |= ADC12SHP;             //²ÉÑù±£³ÖÄ£Ê½
+    ADC12CTL0  |= ADC12MSC;             //è‡ªåŠ¨å¾ªç¯é‡‡æ ·è½¬æ¢
+    ADC12CTL0  |= ADC12ON;              //å¯åŠ¨ADC12æ¨¡å—
+    ADC12CTL1  |= ADC12CONSEQ_3;        //é€‰æ‹©åºåˆ—é€šé“å¤šæ¬¡å¾ªç¯é‡‡æ ·è½¬æ¢
+    ADC12CTL1  |= ADC12SHP;             //é‡‡æ ·ä¿æŒæ¨¡å¼
     ADC12CTL1  |= ADC12CSTARTADD_0;
-    ADC12MCTL0 |= ADC12INCH_1;        //Í¨µÀÑ¡Ôñ
+    ADC12MCTL0 |= ADC12INCH_1;        //é€šé“é€‰æ‹©
     ADC12MCTL1 |= ADC12INCH_2 + ADC12EOS;
     ADC12CTL0  |= ADC12ENC;
 }
 
 #define N_POINT 13
 unsigned int GetAD() {
-    unsigned int temp  = 0;                //ÉèÖÃ±äÁ¿
-    ADC12CTL0         |= ADC12SC;          //¿ªÊ¼²ÉÑù×ª»»
-    temp               = ADC12MEM0;        //°Ñ½á¹û¸³¸ø±äÁ¿
+    unsigned int temp  = 0;                //è®¾ç½®å˜é‡
+    ADC12CTL0         |= ADC12SC;          //å¼€å§‹é‡‡æ ·è½¬æ¢
+    temp               = ADC12MEM0;        //æŠŠç»“æœèµ‹ç»™å˜é‡
     return temp;
 }
 
@@ -38,15 +38,15 @@ unsigned int Filter() {
     }
     for (count = 1; count < N_POINT - 1; count++)
         sum += value_buf[count];
-    //Èç¹ûÎª2µÄn´Î·½µÈ·Ö£¬Ôò¿ÉÒÔÓÃ>>nµÄ¼õÉÙ¼ÆËãÁ¿  a=a*8;  ¿ÉÒÔÎª a=a<<3;
-    //b=b/8; ¿ÉÒÔÎªb=b>>3;
+    //å¦‚æœä¸º2çš„næ¬¡æ–¹ç­‰åˆ†ï¼Œåˆ™å¯ä»¥ç”¨>>nçš„å‡å°‘è®¡ç®—é‡  a=a*8;  å¯ä»¥ä¸º a=a<<3;
+    //b=b/8; å¯ä»¥ä¸ºb=b>>3;
     return (unsigned int)(sum / (N_POINT - 2));
 }
 
 unsigned int GetAD1() {
-    unsigned int temp  = 0;                //ÉèÖÃ±äÁ¿
-    ADC12CTL0         |= ADC12SC;          //¿ªÊ¼²ÉÑù×ª»»
-    temp               = ADC12MEM1;        //°Ñ½á¹û¸³¸ø±äÁ¿
+    unsigned int temp  = 0;                //è®¾ç½®å˜é‡
+    ADC12CTL0         |= ADC12SC;          //å¼€å§‹é‡‡æ ·è½¬æ¢
+    temp               = ADC12MEM1;        //æŠŠç»“æœèµ‹ç»™å˜é‡
     return temp;
 }
 
@@ -69,38 +69,38 @@ unsigned int Filter1() {
     }
     for (count = 1; count < N_POINT - 1; count++)
         sum += value_buf[count];
-    //Èç¹ûÎª2µÄn´Î·½µÈ·Ö£¬Ôò¿ÉÒÔÓÃ>>nµÄ¼õÉÙ¼ÆËãÁ¿  a=a*8;  ¿ÉÒÔÎª a=a<<3;
-    //b=b/8; ¿ÉÒÔÎªb=b>>3;
+    //å¦‚æœä¸º2çš„næ¬¡æ–¹ç­‰åˆ†ï¼Œåˆ™å¯ä»¥ç”¨>>nçš„å‡å°‘è®¡ç®—é‡  a=a*8;  å¯ä»¥ä¸º a=a<<3;
+    //b=b/8; å¯ä»¥ä¸ºb=b>>3;
     return (unsigned int)(sum / (N_POINT - 2));
 }
 
 unsigned int icnt;
 void         IO_Init(void) {
-    P8DIR |= BIT1;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
-    P8OUT &= ~BIT1;        // Ñ¡ÖĞP8.1ÎªÊä³ö·½Ê½
-    P3DIR |= BIT7;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
-    P3OUT &= ~BIT7;        // Ñ¡ÖĞP8.1ÎªÊä³ö·½Ê½
-//
-//    P1DIR |= BIT0;        // ÉèÖÃP3.6¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆ·äÃùÆ÷
-//    P1OUT |= BIT0;        // Ñ¡ÖĞP3.6ÎªÊä³ö·½Ê½
+    P8DIR |= BIT1;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
+    P8OUT &= ~BIT1;        // é€‰ä¸­P8.1ä¸ºè¾“å‡ºæ–¹å¼
+    P3DIR |= BIT7;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
+    P3OUT &= ~BIT7;        // é€‰ä¸­P8.1ä¸ºè¾“å‡ºæ–¹å¼
+                           //
+    //    P1DIR |= BIT0;        // è®¾ç½®P3.6å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶èœ‚é¸£å™¨
+    //    P1OUT |= BIT0;        // é€‰ä¸­P3.6ä¸ºè¾“å‡ºæ–¹å¼
 
-//    P2DIR &= ~(BIT3 + BIT6);
-//    P2REN |= BIT3 + BIT6;
-//    P2OUT |= BIT3 + BIT6;
-//
-//    P1DIR &= ~(BIT3 + BIT2);
-//    P1REN  = BIT3 + BIT2;
-//    P1OUT |= BIT3 + BIT2;
+    //    P2DIR &= ~(BIT3 + BIT6);
+    //    P2REN |= BIT3 + BIT6;
+    //    P2OUT |= BIT3 + BIT6;
+    //
+    //    P1DIR &= ~(BIT3 + BIT2);
+    //    P1REN  = BIT3 + BIT2;
+    //    P1OUT |= BIT3 + BIT2;
 
-    P6DIR |= BIT3;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
-    P6OUT &= ~BIT3;        // Ñ¡ÖĞP8.1ÎªÊä³ö·½Ê½
-    P6DIR |= BIT4;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
+    P6DIR |= BIT3;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
+    P6OUT &= ~BIT3;        // é€‰ä¸­P8.1ä¸ºè¾“å‡ºæ–¹å¼
+    P6DIR |= BIT4;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
     P6OUT &= ~BIT4;
 
-    P7DIR |= BIT4;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
-    P7OUT &= ~BIT4;        // Ñ¡ÖĞP8.1ÎªÊä³ö·½Ê½
-    P3DIR |= BIT5;         // ÉèÖÃP8.1¿ÚÎªÊä³öÄ£Ê½  ¿ØÖÆLEDµÆ
-    P3OUT &= ~BIT5;        // Ñ¡ÖĞP8.1ÎªÊä³ö·½Ê½
+    P7DIR |= BIT4;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
+    P7OUT &= ~BIT4;        // é€‰ä¸­P8.1ä¸ºè¾“å‡ºæ–¹å¼
+    P3DIR |= BIT5;         // è®¾ç½®P8.1å£ä¸ºè¾“å‡ºæ¨¡å¼  æ§åˆ¶LEDç¯
+    P3OUT &= ~BIT5;        // é€‰ä¸­P8.1ä¸ºè¾“å‡ºæ–¹å¼
 }
 
 int apInterface_Key(void) { return 0; }
@@ -114,15 +114,15 @@ int main(void) {
 
     ADInit();
 
-//    TA0CTL   |= MC_1 + TASSEL_2 + TACLR;        //Ê±ÖÓÎªSMCLK,±È½ÏÄ£Ê½£¬¿ªÊ¼Ê±ÇåÁã¼ÆÊıÆ÷
-//    TA0CCTL0  = CCIE;                           //±È½ÏÆ÷ÖĞ¶ÏÊ¹ÄÜ
-//    TA0CCR0   = 50000;                          //±È½ÏÖµÉèÎª50000£¬Ïàµ±ÓÚ50msµÄÊ±¼ä¼ä¸ô
-//    __enable_interrupt();
+    //    TA0CTL   |= MC_1 + TASSEL_2 + TACLR;        //æ—¶é’Ÿä¸ºSMCLK,æ¯”è¾ƒæ¨¡å¼ï¼Œå¼€å§‹æ—¶æ¸…é›¶è®¡æ•°å™¨
+    //    TA0CCTL0  = CCIE;                           //æ¯”è¾ƒå™¨ä¸­æ–­ä½¿èƒ½
+    //    TA0CCR0   = 50000;                          //æ¯”è¾ƒå€¼è®¾ä¸º50000ï¼Œç›¸å½“äº50msçš„æ—¶é—´é—´éš”
+    //    __enable_interrupt();
 
-    volatile unsigned int ivalue  = 0;        //ÉèÖÃÅĞ¶Ï±äÁ¿
+    volatile unsigned int ivalue = 0;        //è®¾ç½®åˆ¤æ–­å˜é‡
     while (1) {
-        //  ivalue = GetAD();                                            //Ã»ÓĞÈí¼şÂË²¨
-        ivalue  = Filter();        //Èí¼şÂË²¨
+        //  ivalue = GetAD();                                            //æ²¡æœ‰è½¯ä»¶æ»¤æ³¢
+        ivalue = Filter();        //è½¯ä»¶æ»¤æ³¢
         if (ivalue >= 2550) {
             P3OUT |= BIT5;
         } else {
@@ -158,7 +158,7 @@ int main(void) {
 //#pragma vector = TIMER0_A0_VECTOR
 //__interrupt void Timer_A(void) {
 //    icnt++;
-//    if (icnt == 4) {        //10s¹ØµÆ
+//    if (icnt == 4) {        //10så…³ç¯
 //        P1OUT &= ~BIT0;
 //        icnt   = 0;
 //    }

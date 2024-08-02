@@ -1,7 +1,7 @@
 ******************************************************************************
                   MSP430 Linker PC v21.6.1                     
 ******************************************************************************
->> Linked Fri Aug  2 20:43:20 2024
+>> Linked Fri Aug  2 20:46:02 2024
 
 OUTPUT FILE NAME:   <Final_project.out>
 ENTRY POINT SYMBOL: "_c_int00_noargs"  address: 00004400
@@ -85,7 +85,7 @@ MEMORY CONFIGURATION
   INT61                 0000fffa   00000002  00000002  00000000  RWIX
   INT62                 0000fffc   00000002  00000002  00000000  RWIX
   RESET                 0000fffe   00000002  00000002  00000000  RWIX
-  FLASH2                00010000   000143f8  00000614  00013de4  RWIX
+  FLASH2                00010000   000143f8  0000060c  00013dec  RWIX
 
 
 SECTION ALLOCATION MAP
@@ -197,7 +197,7 @@ SYSNMI     0    0000fffc    00000002
 .reset     0    0000fffe    00000002     
                   0000fffe    00000002     rts430x_lc_rd_eabi.lib : boot.c.obj (.reset)
 
-.text      0    00010000    00000614     
+.text      0    00010000    0000060c     
                   00010000    000000de     temp_led.obj (.text:Filter)
                   000100de    000000d2     Paper_Display.obj (.text:INIT_SSD1673)
                   000101b0    000000c8     Paper_Display.obj (.text:DIS_IMG)
@@ -205,25 +205,25 @@ SYSNMI     0    0000fffc    00000002
                   000102fe    00000054     rts430x_lc_rd_eabi.lib : autoinit.c.obj (.text:__TI_auto_init_nobinit_nopinit_hold_wdt:__TI_auto_init_nobinit_nopinit_hold_wdt)
                   00010352    00000044     Paper_Display.obj (.text:SPI4W_WRITECOM)
                   00010396    00000044     Paper_Display.obj (.text:SPI4W_WRITEDATA)
-                  000103da    00000044     main.obj (.text:main)
-                  0001041e    00000042     temp_led.obj (.text:IO_Init)
-                  00010460    0000003a     Paper_Display.obj (.text:initClock)
-                  0001049a    0000002e     temp_led.obj (.text:ADInit)
-                  000104c8    0000002c     rts430x_lc_rd_eabi.lib : div16s.asm.obj (.text)
-                  000104f4    00000026     Paper_Display.obj (.text:WRITE_LUT)
-                  0001051a    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
-                  0001053e    0000001c     Paper_Display.obj (.text:DELAY_S)
-                  0001055a    0000001c     Paper_Display.obj (.text:DELAY_mS)
-                  00010576    0000001a     Paper_Display.obj (.text:Init_buff)
-                  00010590    0000001a     Paper_Display.obj (.text:MyRESET)
-                  000105aa    00000018     Paper_Display.obj (.text:DELAY_M)
-                  000105c2    00000018     Paper_Display.obj (.text:PaperIO_Int)
-                  000105da    00000016     rts430x_lc_rd_eabi.lib : div16u.asm.obj (.text)
-                  000105f0    0000000e     Paper_Display.obj (.text:READBUSY)
-                  000105fe    0000000a     temp_led.obj (.text:GetAD)
-                  00010608    00000006     rts430x_lc_rd_eabi.lib : exit.c.obj (.text:abort)
-                  0001060e    00000004                            : pre_init.c.obj (.text:_system_pre_init)
-                  00010612    00000002                            : startup.c.obj (.text:_system_post_cinit)
+                  000103da    00000042     temp_led.obj (.text:IO_Init)
+                  0001041c    0000003c     main.obj (.text:main)
+                  00010458    0000003a     Paper_Display.obj (.text:initClock)
+                  00010492    0000002e     temp_led.obj (.text:ADInit)
+                  000104c0    0000002c     rts430x_lc_rd_eabi.lib : div16s.asm.obj (.text)
+                  000104ec    00000026     Paper_Display.obj (.text:WRITE_LUT)
+                  00010512    00000024     rts430x_lc_rd_eabi.lib : copy_zero_init.c.obj (.text:decompress:ZI:__TI_zero_init)
+                  00010536    0000001c     Paper_Display.obj (.text:DELAY_S)
+                  00010552    0000001c     Paper_Display.obj (.text:DELAY_mS)
+                  0001056e    0000001a     Paper_Display.obj (.text:Init_buff)
+                  00010588    0000001a     Paper_Display.obj (.text:MyRESET)
+                  000105a2    00000018     Paper_Display.obj (.text:DELAY_M)
+                  000105ba    00000018     Paper_Display.obj (.text:PaperIO_Int)
+                  000105d2    00000016     rts430x_lc_rd_eabi.lib : div16u.asm.obj (.text)
+                  000105e8    0000000e     Paper_Display.obj (.text:READBUSY)
+                  000105f6    0000000a     temp_led.obj (.text:GetAD)
+                  00010600    00000006     rts430x_lc_rd_eabi.lib : exit.c.obj (.text:abort)
+                  00010606    00000004                            : pre_init.c.obj (.text:_system_pre_init)
+                  0001060a    00000002                            : startup.c.obj (.text:_system_post_cinit)
 
 MODULE SUMMARY
 
@@ -232,9 +232,9 @@ MODULE SUMMARY
     .\
        Paper_Display.obj      812    8029      4000   
        temp_led.obj           478    0         0      
-       main.obj               68     0         0      
+       main.obj               60     0         0      
     +--+----------------------+------+---------+---------+
-       Total:                 1358   8029      4000   
+       Total:                 1350   8029      4000   
                                                       
     C:\ti\ccs1271\ccs\tools\compiler\ti-cgt-msp430_21.6.1.LTS\lib\rts430x_lc_rd_eabi.lib
        autoinit.c.obj         84     0         0      
@@ -274,7 +274,7 @@ MODULE SUMMARY
        Stack:                 0      0         160    
        Linker Generated:      0      18        0      
     +--+----------------------+------+---------+---------+
-       Grand Total:           1592   8093      4160   
+       Grand Total:           1584   8093      4160   
 
 
 LINKER GENERATED COPY TABLES
@@ -375,8 +375,8 @@ address   name
 00000732  ADC12MEM9                              
 00000733  ADC12MEM9_H                            
 00000732  ADC12MEM9_L                            
-0001049a  ADInit                                 
-00010608  C$$EXIT                                
+00010492  ADInit                                 
+00010600  C$$EXIT                                
 000008c0  CBCTL0                                 
 000008c1  CBCTL0_H                               
 000008c0  CBCTL0_L                               
@@ -405,9 +405,9 @@ address   name
 00000156  CRCRESR                                
 00000157  CRCRESR_H                              
 00000156  CRCRESR_L                              
-000105aa  DELAY_M                                
-0001053e  DELAY_S                                
-0001055a  DELAY_mS                               
+000105a2  DELAY_M                                
+00010536  DELAY_S                                
+00010552  DELAY_mS                               
 000101b0  DIS_IMG                                
 00000510  DMA0CTL                                
 00000516  DMA0DA                                 
@@ -450,10 +450,10 @@ address   name
 00000147  FCTL4_H                                
 00000146  FCTL4_L                                
 00010000  Filter                                 
-000105fe  GetAD                                  
+000105f6  GetAD                                  
 000100de  INIT_SSD1673                           
-0001041e  IO_Init                                
-00010576  Init_buff                              
+000103da  IO_Init                                
+0001056e  Init_buff                              
 000004c4  MAC                                    
 000004da  MAC32H                                 
 000004db  MAC32H_H                               
@@ -493,7 +493,7 @@ address   name
 000004c2  MPYS_L                                 
 000004c1  MPY_H                                  
 000004c0  MPY_L                                  
-00010590  MyRESET                                
+00010588  MyRESET                                
 000004c8  OP2                                    
 000004e2  OP2H                                   
 000004e3  OP2H_H                                 
@@ -634,11 +634,11 @@ address   name
 0000012e  PMMRIE                                 
 0000012f  PMMRIE_H                               
 0000012e  PMMRIE_L                               
-000105c2  PaperIO_Int                            
+000105ba  PaperIO_Int                            
 00000158  RCCTL0                                 
 00000159  RCCTL0_H                               
 00000158  RCCTL0_L                               
-000105f0  READBUSY                               
+000105e8  READBUSY                               
 000001b0  REFCTL0                                
 000001b1  REFCTL0_H                              
 000001b0  REFCTL0_L                              
@@ -1040,7 +1040,7 @@ address   name
 0000015c  WDTCTL                                 
 0000015d  WDTCTL_H                               
 0000015c  WDTCTL_L                               
-000104f4  WRITE_LUT                              
+000104ec  WRITE_LUT                              
 00004400  __STACK_END                            
 000000a0  __STACK_SIZE                           
 0000638c  __TI_CINIT_Base                        
@@ -1075,23 +1075,23 @@ address   name
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   
-0001051a  __TI_zero_init                         
+00010512  __TI_zero_init                         
 ffffffff  __c_args__                             
-000104c8  __mspabi_divi                          
-000105da  __mspabi_divu                          
-000104c8  __mspabi_remi                          
-000105da  __mspabi_remu                          
+000104c0  __mspabi_divi                          
+000105d2  __mspabi_divu                          
+000104c0  __mspabi_remi                          
+000105d2  __mspabi_remu                          
 00004400  _c_int00_noargs                        
 0000fffe  _reset_vector                          
 00004360  _stack                                 
-00010612  _system_post_cinit                     
-0001060e  _system_pre_init                       
-00010608  abort                                  
+0001060a  _system_post_cinit                     
+00010606  _system_pre_init                       
+00010600  abort                                  
 00004424  gImage_b                               
 000053c4  gImage_logo                            
-00010460  initClock                              
+00010458  initClock                              
 00006364  init_data                              
-000103da  main                                   
+0001041c  main                                   
 00010278  temperature_control                    
 
 
@@ -1873,28 +1873,28 @@ address   name
 000102fe  __TI_auto_init_nobinit_nopinit_hold_wdt
 00010352  SPI4W_WRITECOM                         
 00010396  SPI4W_WRITEDATA                        
-000103da  main                                   
-0001041e  IO_Init                                
-00010460  initClock                              
-0001049a  ADInit                                 
-000104c8  __mspabi_divi                          
-000104c8  __mspabi_remi                          
-000104f4  WRITE_LUT                              
-0001051a  __TI_zero_init                         
-0001053e  DELAY_S                                
-0001055a  DELAY_mS                               
-00010576  Init_buff                              
-00010590  MyRESET                                
-000105aa  DELAY_M                                
-000105c2  PaperIO_Int                            
-000105da  __mspabi_divu                          
-000105da  __mspabi_remu                          
-000105f0  READBUSY                               
-000105fe  GetAD                                  
-00010608  C$$EXIT                                
-00010608  abort                                  
-0001060e  _system_pre_init                       
-00010612  _system_post_cinit                     
+000103da  IO_Init                                
+0001041c  main                                   
+00010458  initClock                              
+00010492  ADInit                                 
+000104c0  __mspabi_divi                          
+000104c0  __mspabi_remi                          
+000104ec  WRITE_LUT                              
+00010512  __TI_zero_init                         
+00010536  DELAY_S                                
+00010552  DELAY_mS                               
+0001056e  Init_buff                              
+00010588  MyRESET                                
+000105a2  DELAY_M                                
+000105ba  PaperIO_Int                            
+000105d2  __mspabi_divu                          
+000105d2  __mspabi_remu                          
+000105e8  READBUSY                               
+000105f6  GetAD                                  
+00010600  C$$EXIT                                
+00010600  abort                                  
+00010606  _system_pre_init                       
+0001060a  _system_post_cinit                     
 ffffffff  __TI_pprof_out_hndl                    
 ffffffff  __TI_prof_data_size                    
 ffffffff  __TI_prof_data_start                   

@@ -9,36 +9,35 @@
 #define TEMP_THRESHOLD_5 2750
 #define TEMP_THRESHOLD_6 2800
 
-#define DELAY_MAX        1600
-#define DELAY_MEDIUM     800
-#define DELAY_MIN        16
+#define DELAY_MAX        3200
+#define DELAY_MEDIUM     1280
+#define DELAY_MIN        160
 #define BREATHING_PAUSE  1600000
 #define MAX_BREATH_VALUE 8000
 
 #define breathe(delay, pause)                                                  \
     do {                                                                       \
-        int i = 0;                                                             \
+        unsigned int i = 0;                                                    \
         for (i = 0; i < MAX_BREATH_VALUE; i++) {                               \
-            TA2CCR2 = i;                                                       \
+            TA0CCR1 = i;                                                       \
             __delay_cycles(delay);                                             \
         }                                                                      \
         __delay_cycles(pause);                                                 \
         for (i = MAX_BREATH_VALUE; i > 0; i--) {                               \
-            TA2CCR2 = i;                                                       \
+            TA0CCR1 = i;                                                       \
             __delay_cycles(delay);                                             \
         }                                                                      \
         __delay_cycles(pause);                                                 \
     } while (0)
 
 #define set_output_if_above_threshold(threshold, port, bit, ivalue)            \
-    {                                                                          \
+    do {                                                                       \
         if (ivalue >= threshold) {                                             \
             port |= bit;                                                       \
         } else {                                                               \
             port &= ~bit;                                                      \
         }                                                                      \
-    }                                                                          \
-    while (0)
+    } while (0)
 
 extern unsigned int icnt;
 
@@ -49,6 +48,6 @@ unsigned int        GetAD1(void);
 unsigned int        Filter1(void);
 void                IO_Init(void);
 void                temperature_control(volatile unsigned int ivalue);
-void                large_led_breath(volatile unsigned int ivalue);
-
+void                led_breath(volatile unsigned int ivalue);
+void                ClockInit();
 #endif        //__temp_led_h__

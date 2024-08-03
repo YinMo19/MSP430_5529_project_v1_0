@@ -1,11 +1,33 @@
 #include <msp430.h>
 #include "temp_led.h"
 
+// 最终MCLK:16MHZ,SMCLK:8MHZ,ACLK:32KHZ
+void ClockInit(void) {             // 最终MCLK:16MHZ,SMCLK:8MHZ,ACLK:32KHZ
+    UCSCTL6 &= ~XT1OFF;            // 启动XT1
+    P5SEL   |= BIT2 + BIT3;        // XT2引脚功能选择
+    UCSCTL6 &= ~XT2OFF;            // 打开XT2
+    __bis_SR_register(SCG0);
+    UCSCTL0 = DCO0 + DCO1 + DCO2 + DCO3 + DCO4;
+    UCSCTL1 = DCORSEL_4;         // DCO频率范围在28.2MHZ以下
+    UCSCTL2 = FLLD_5 + 1;        // D=16，N=1
+
+    // n=8,FLLREFCLK时钟源为XT2CLK；
+    // DCOCLK=D*(N+1)*(FLLREFCLK/n);
+    // DCOCLKDIV=(N+1)*(FLLREFCLK/n);
+    UCSCTL3 = SELREF_5 + FLLREFDIV_3;
+    // ACLK的时钟源为DCOCLKDIV,
+    // MCLK\SMCLK的时钟源为DCOCLK
+    UCSCTL4 = SELA_4 + SELS_3 + SELM_3;
+    // ACLK由DCOCLKDIV的32分频得到，
+    // SMCLK由DCOCLK的2分频得到
+    UCSCTL5 = DIVA_5 + DIVS_1;
+}
+
 void ADInit() {
-    ADC12CTL0  |= ADC12MSC;             //自动循环采样转换
-    ADC12CTL0  |= ADC12ON;              //启动ADC12模块
-    ADC12CTL1  |= ADC12CONSEQ_3;        //选择序列通道多次循环采样转换
-    ADC12CTL1  |= ADC12SHP;             //采样保持模式
+    ADC12CTL0 |= ADC12MSC;             //自动循环采样转换
+    ADC12CTL0 |= ADC12ON;              //启动ADC12模块
+    ADC12CTL1 |= ADC12CONSEQ_3;        //选择序列通道多次循环采样转换
+    ADC12CTL1  |= ADC12SHP;            //采样保持模式
     ADC12CTL1  |= ADC12CSTARTADD_0;
     ADC12MCTL0 |= ADC12INCH_1;        //通道选择
     ADC12MCTL1 |= ADC12INCH_2 + ADC12EOS;
@@ -20,7 +42,7 @@ unsigned int GetAD() {
 }
 
 unsigned int Filter() {
-    char         count, i, j;
+    unsigned int count, i, j;
     unsigned int value_buf[N_POINT];
     unsigned int temp = 0;
     int          sum  = 0;
@@ -51,7 +73,7 @@ unsigned int GetAD1() {
 }
 
 unsigned int Filter1() {
-    char         count, i, j;
+    unsigned int count, i, j;
     unsigned int value_buf[N_POINT];
     unsigned int temp = 0;
     int          sum  = 0;
@@ -97,16 +119,19 @@ void IO_Init(void) {
     P2OUT    &= ~BIT4;                // 将 P2.4 设置为低电平
     P2SEL    |= BIT5;                 // 选择 P2.5 为大功率LED
 
-    TA0CTL   |= MC_1 + TASSEL_2 + TACLR;        //时钟为SMCLK,比较模式，开始时清零计数器
-    TA0CCTL0  = CCIE;                           //比较器中断使能
-    TA0CCR0   = 50000;                          //比较值设为50000，相当于50ms的时间间隔
+    TA0CTL    = TASSEL_2 + MC_1 + TACLR;
+    // 时钟源为 SMCLK，增计数模式，清零计数器
+    TA0CCR0   = 8000;            // 设置 PWM 周期
+    TA0CCTL1  = OUTMOD_7;        // 设置输出模式为重置/置位模式
+    TA0CCR1   = 0;               // 初始占空比为 0
 
     TA2CTL    = TASSEL_2 + TACLR + MC_1;
     TA2CCR0   = 8000;            // PWM周期
     TA2CCTL2  = OUTMOD_7;        // 输出模式7
+
+    P1DIR    |= BIT2;        // 设置 P1.2 为输出方向
+    P1SEL    |= BIT2;        // 设置 P1.2 为 Timer_A 输出
 }
-
-
 
 void temperature_control(volatile unsigned int ivalue) {
     set_output_if_above_threshold(TEMP_THRESHOLD_1, P3OUT, BIT5, ivalue);
@@ -117,19 +142,17 @@ void temperature_control(volatile unsigned int ivalue) {
     set_output_if_above_threshold(TEMP_THRESHOLD_6, P8OUT, BIT1, ivalue);
 }
 
-
-
 /**
- * 控制大型LED灯的呼吸效果
+ * 控制LED灯的呼吸效果
  * 
- * 该函数通过调整TA2CCR2的值来控制LED的亮度，实现呼吸效果
+ * 该函数通过调整TA1CCR2的值来控制LED的亮度，实现呼吸效果
  * 不同的输入值（ivalue）对应不同的延迟周期，从而实现不同的呼吸效果
  * 在温控指示灯不亮时不亮，在温控灯亮起时开始呼吸，
  * 温控灯越多，呼吸越急促，当温控灯亮起4盏，则常亮。
  * 
  * @param ivalue 输入值，用于决定呼吸效果的类型
  */
-void large_led_breath(volatile unsigned int ivalue) {
+void led_breath(volatile unsigned int ivalue) {
     if (ivalue >= TEMP_THRESHOLD_1 && ivalue < TEMP_THRESHOLD_2) {
         breathe(DELAY_MAX, BREATHING_PAUSE);
     } else if (ivalue >= TEMP_THRESHOLD_2 && ivalue < TEMP_THRESHOLD_3) {
@@ -137,8 +160,8 @@ void large_led_breath(volatile unsigned int ivalue) {
     } else if (ivalue >= TEMP_THRESHOLD_3 && ivalue < TEMP_THRESHOLD_4) {
         breathe(DELAY_MIN, BREATHING_PAUSE);
     } else if (ivalue >= TEMP_THRESHOLD_4) {
-        TA2CCR2 = MAX_BREATH_VALUE;
+        TA0CCR1 = MAX_BREATH_VALUE;
     } else {
-        TA2CCR2 = 0;
+        TA0CCR1 = 0;
     }
 }

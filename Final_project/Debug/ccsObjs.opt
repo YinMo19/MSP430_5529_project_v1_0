@@ -1,6 +1,7 @@
 "./Paper_Display.obj"
 "./main.obj"
 "./oled.obj"
+"./oled_control.obj"
 "./temp_led.obj"
 "../lnk_msp430f5529.cmd"
 -llibmath.a

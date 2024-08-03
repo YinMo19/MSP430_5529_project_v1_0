@@ -44,7 +44,7 @@
 //----------------------------------------------------------------------------------
 //OLED SSD1306 SPI  时钟D0//#define		OLED_SSD1306_SCLK_DIR			(P1DIR)
 //#define		OLED_SSD1306_SCLK_OUT			(P1OUT)
-#define OLED_SSD1306_SCLK_PIN_NUM (BIT1)
+#define OLED_SSD1306_SCLK_PIN_NUM (BIT0)
 
 #define OLED_SSD1306_SCLK_IO_INIT (Set_Bit(P3DIR, OLED_SSD1306_SCLK_PIN_NUM))
 #define OLED_SCLK_Set()           (Set_Bit(P3OUT, OLED_SSD1306_SCLK_PIN_NUM))
@@ -54,7 +54,7 @@
 //OLED SSD1306 SPI 数据D1
 //#define		OLED_SSD1306_SDIN_DIR			(P1DIR)
 //#define		OLED_SSD1306_SDIN_OUT			(P1OUT)
-#define OLED_SSD1306_SDIN_PIN_NUM (BIT0)
+#define OLED_SSD1306_SDIN_PIN_NUM (BIT1)
 
 #define OLED_SSD1306_SDIN_IO_INIT (Set_Bit(P3DIR, OLED_SSD1306_SDIN_PIN_NUM))
 #define OLED_SDIN_Set()           (Set_Bit(P3OUT, OLED_SSD1306_SDIN_PIN_NUM))
@@ -64,7 +64,7 @@
 //OLED SSD1306 数据/命令DC
 //#define		OLED_SSD1306_DC_DIR				(P1DIR)
 //#define		OLED_SSD1306_DC_OUT				(P1OUT)
-#define OLED_SSD1306_DC_PIN_NUM   (BIT5)
+#define OLED_SSD1306_DC_PIN_NUM   (BIT6)
 
 #define OLED_SSD1306_DC_IO_INIT   (Set_Bit(P6DIR, OLED_SSD1306_DC_PIN_NUM))
 #define OLED_DC_Set()             (Set_Bit(P6OUT, OLED_SSD1306_DC_PIN_NUM))
@@ -84,11 +84,11 @@
 //OLED SSD1306 复位/RES
 //#define		OLED_SSD1306_RST_DIR			(P1DIR)
 //#define		OLED_SSD1306_RST_OUT			(P1OUT)
-#define OLED_SSD1306_RST_PIN_NUM  (BIT4)
+#define OLED_SSD1306_RST_PIN_NUM  (BIT3)
 
-#define OLED_SSD1306_RST_IO_INIT  (Set_Bit(P3DIR, OLED_SSD1306_RST_PIN_NUM))
-#define OLED_RST_Set()            (Set_Bit(P3OUT, OLED_SSD1306_RST_PIN_NUM))
-#define OLED_RST_Clr()            (Clr_Bit(P3OUT, OLED_SSD1306_RST_PIN_NUM))
+#define OLED_SSD1306_RST_IO_INIT  (Set_Bit(P4DIR, OLED_SSD1306_RST_PIN_NUM))
+#define OLED_RST_Set()            (Set_Bit(P4OUT, OLED_SSD1306_RST_PIN_NUM))
+#define OLED_RST_Clr()            (Clr_Bit(P4OUT, OLED_SSD1306_RST_PIN_NUM))
 
 #define SIZE                      16
 #define XLevelL                   0x02

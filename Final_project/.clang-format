@@ -20,7 +20,7 @@ AccessModifierOffset: -4
 # - DontAlign: 不对于开括号, 即换行时使用配置的空格数
 # - AlwaysBreak: 永远换行, 即第一个参数都不允许粘连括号, 会强制换行, 换行后使用配置空格数对齐
 # - BlockIndent: 同AlwaysBreak, 多了一个操作: 如果参数不固定在同一行, 闭括号将在下一行
-AlignAfterOpenBracket: Align
+AlignAfterOpenBracket: DontAlign
 
 # - 结构休数组统一初始化对齐, 建议不配置, 没过多必要, 详见clang-format doc
 # - None: 不做处理, 即保留开发者的代码
@@ -103,7 +103,7 @@ AlwaysBreakAfterDefinitionReturnType: None
 # Return类型后是否换行, 诡异的定义, 请设置为None即可
 AlwaysBreakAfterReturnType: None
 # 多常量字符串定义是, 是否在第一个字符串常量前换行, true/false, 建议false
-AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakBeforeMultilineStrings: true
 # 模板声明换行风格, 可选值:
 # - No: 永远不对开发者的风格作处理
 # - MultiLine: 建议值, 即仅在开发者写的模板声明(包括函数)跨越多行时, 进行换行, 否则维持原样
@@ -164,7 +164,7 @@ BreakAfterJavaFieldAnnotations: false
 # 字面字符串是否换行, true
 BreakStringLiterals: true
 # 代码列字符上限
-ColumnLimit:     110
+ColumnLimit:     80
 # pragma注释
 CommentPragmas:  '^ IWYU pragma:'
 # 注释关键字对齐(const/volatile), 建议Leave

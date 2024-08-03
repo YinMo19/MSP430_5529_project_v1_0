@@ -106,38 +106,18 @@ void IO_Init(void) {
     TA2CCTL2  = OUTMOD_7;        // 输出模式7
 }
 
+
+
 void temperature_control(volatile unsigned int ivalue) {
-    if (ivalue >= 2550) {
-        P3OUT |= BIT5;
-    } else {
-        P3OUT &= ~BIT5;
-    }
-    if (ivalue >= 2600) {
-        P6OUT |= BIT4;
-    } else {
-        P6OUT &= ~BIT4;
-    }
-    if (ivalue >= 2650) {
-        P6OUT |= BIT3;
-    } else {
-        P6OUT &= ~BIT3;
-    }
-    if (ivalue >= 2700) {
-        P7OUT |= BIT4;
-    } else {
-        P7OUT &= ~BIT4;
-    }
-    if (ivalue >= 2750) {
-        P3OUT |= BIT7;
-    } else {
-        P3OUT &= ~BIT7;
-    }
-    if (ivalue >= 2800) {
-        P8OUT |= BIT1;
-    } else {
-        P8OUT &= ~BIT1;
-    }
+    set_output_if_above_threshold(TEMP_THRESHOLD_1, P3OUT, BIT5, ivalue);
+    set_output_if_above_threshold(TEMP_THRESHOLD_2, P6OUT, BIT4, ivalue);
+    set_output_if_above_threshold(TEMP_THRESHOLD_3, P6OUT, BIT3, ivalue);
+    set_output_if_above_threshold(TEMP_THRESHOLD_4, P7OUT, BIT4, ivalue);
+    set_output_if_above_threshold(TEMP_THRESHOLD_5, P3OUT, BIT7, ivalue);
+    set_output_if_above_threshold(TEMP_THRESHOLD_6, P8OUT, BIT1, ivalue);
 }
+
+
 
 /**
  * 控制大型LED灯的呼吸效果
@@ -150,45 +130,14 @@ void temperature_control(volatile unsigned int ivalue) {
  * @param ivalue 输入值，用于决定呼吸效果的类型
  */
 void large_led_breath(volatile unsigned int ivalue) {
-    int i = 0;
-    if (ivalue >= 2550 && ivalue < 2600) {
-        for (i = 0; i < 8000; i++) {
-            TA2CCR2 = i;
-            __delay_cycles(1600);
-        }
-        __delay_cycles(1600000);
-        for (i = 8000; i > 0; i--) {
-            TA2CCR2 = i;
-            __delay_cycles(1600);
-        }
-        __delay_cycles(1600000);
-
-    } else if (ivalue >= 2600 && ivalue < 2650) {
-        for (i = 0; i < 8000; i++) {
-            TA2CCR2 = i;
-            __delay_cycles(800);
-        }
-        __delay_cycles(1600000);
-        for (i = 8000; i > 0; i--) {
-            TA2CCR2 = i;
-            __delay_cycles(800);
-        }
-        __delay_cycles(1600000);
-
-    } else if (ivalue >= 2650 && ivalue < 2700) {
-        for (i = 0; i < 8000; i++) {
-            TA2CCR2 = i;
-            __delay_cycles(16);
-        }
-        __delay_cycles(1600000);
-        for (i = 8000; i > 0; i--) {
-            TA2CCR2 = i;
-            __delay_cycles(16);
-        }
-        __delay_cycles(1600000);
-
-    } else if (ivalue >= 2700) {
-        TA2CCR2 = 8000;
+    if (ivalue >= TEMP_THRESHOLD_1 && ivalue < TEMP_THRESHOLD_2) {
+        breathe(DELAY_MAX, BREATHING_PAUSE);
+    } else if (ivalue >= TEMP_THRESHOLD_2 && ivalue < TEMP_THRESHOLD_3) {
+        breathe(DELAY_MEDIUM, BREATHING_PAUSE);
+    } else if (ivalue >= TEMP_THRESHOLD_3 && ivalue < TEMP_THRESHOLD_4) {
+        breathe(DELAY_MIN, BREATHING_PAUSE);
+    } else if (ivalue >= TEMP_THRESHOLD_4) {
+        TA2CCR2 = MAX_BREATH_VALUE;
     } else {
         TA2CCR2 = 0;
     }
